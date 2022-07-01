@@ -1,6 +1,6 @@
 //
 //  EmojiMemoryGame.swift
-//  First
+//  First Project
 //
 //  Created by Skinderev Alexander  on 28.06.2022.
 //
