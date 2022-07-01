@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct FirstApp: App {
-    let game = EmojiMemoryGame()
+    private let game = EmojiMemoryGame()
     var body: some Scene {
         WindowGroup {
             ContentView(viewModel: game)
