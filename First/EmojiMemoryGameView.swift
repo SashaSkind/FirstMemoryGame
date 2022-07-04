@@ -32,8 +32,12 @@ struct CardView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))                        .padding(5).opacity(0.5)
+                Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))                        .padding(5)
+                    .opacity(0.5)
                 Text(card.content).font(font(in: geometry.size))
+                    .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
+                    .animation(Animation.easeInOut(duration: 2))
+                    .font(font(in: geometry.size))
             }
             .cardify(isFaceUp: card.isFaceUp)
         }
