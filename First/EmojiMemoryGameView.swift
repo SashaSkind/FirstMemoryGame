@@ -50,6 +50,7 @@ struct EmojiMemoryGameView: View {
         ZStack {
             ForEach(game.cards.filter(isUndealt)) { card in
                 CardView(card: card)
+                    .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity))
             }
         }
         .frame(width: CardConstants.undealtWight, height: CardConstants.undealtHeight)
