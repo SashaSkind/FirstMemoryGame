@@ -12,6 +12,7 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         VStack {
             gameBody
+            deckBody
             shuffle
         }
         .padding()
@@ -33,17 +34,10 @@ struct EmojiMemoryGameView: View {
             } else {
                 CardView(card: card)
                     .padding(4)
-                    .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity).animation(.easeInOut(duration: 3)))
+                    .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity))
                     .onTapGesture {
                         withAnimation {
                             game.choose(card)
-                        }
-                    }
-                    .onAppear {
-                        withAnimation {
-                            for card in game.cards {
-                                deal(card)
-                            }
                         }
                     }
             }
@@ -52,6 +46,22 @@ struct EmojiMemoryGameView: View {
         .padding (.horizontal)
     }
     
+    var deckBody: some View {
+        ZStack {
+            ForEach(game.cards.filter(isUndealt)) { card in
+                CardView(card: card)
+            }
+        }
+        .frame(width: CardConstants.undealtWight, height: CardConstants.undealtHeight)
+        .foregroundColor(CardConstants.color)
+        .onTapGesture {
+            withAnimation {
+                for card in game.cards {
+                    deal(card)
+                }
+            }
+        }
+    }
     
     var shuffle: some View {
         Button("Shuffle") {
@@ -59,6 +69,15 @@ struct EmojiMemoryGameView: View {
                game.shuffle()
             }
         }
+    }
+    
+    private struct CardConstants {
+        static let color = Color.red
+        static let aspectRatio: CGFloat = 2/3
+        static let dealDuration: Double = 0.5
+        static let totalDealDuration: Double = 2
+        static let undealtHeight: CGFloat = 90
+        static let undealtWight: CGFloat = undealtHeight * aspectRatio
     }
 }
 
@@ -98,6 +117,7 @@ struct ContentView_Previews: PreviewProvider {
         let game = EmojiMemoryGame()
         EmojiMemoryGameView(game: game)
             .preferredColorScheme(.light)
+            .previewInterfaceOrientation(.portrait)
         //EmojiMemoryGameView(game: game)
           //.preferredColorScheme(.dark)
     }
