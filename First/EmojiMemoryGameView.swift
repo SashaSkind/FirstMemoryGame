@@ -61,7 +61,7 @@ struct EmojiMemoryGameView: View {
         .frame(width: CardConstants.undealtWight, height: CardConstants.undealtHeight)
         .foregroundColor(CardConstants.color)
         .onTapGesture {
-            withAnimation {
+            withAnimation(.easeInOut(duration: 5)) {
                 for card in game.cards {
                     deal(card)
                 }
@@ -93,7 +93,8 @@ struct CardView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))                        .padding(5)
+                Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))
+                    .padding(5)
                     .opacity(0.5)
                 Text(card.content)
                     .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
