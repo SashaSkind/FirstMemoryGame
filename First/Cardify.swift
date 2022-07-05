@@ -24,7 +24,7 @@ struct Cardify: AnimatableModifier {
             let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
             if rotation < 90 {
                 shape.fill().foregroundColor(.white)
-                shape.strokeBorder(Color.red, lineWidth: DrawingConstants.lineWidth)
+                shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
             } else {
                 shape.fill()
             }
